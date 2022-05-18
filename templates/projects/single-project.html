@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h4>{{ project.title }}</h4>
+<br>
+{% for tag in project.tags.all %}
+{{ tag }}<br>
+{% endfor %}
+{% endblock %}
