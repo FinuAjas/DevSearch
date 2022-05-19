@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.urls import is_valid_path
-
+from django.contrib.auth.decorators import login_required
 from projects.forms import ProjectForm
 from .models import Project
 
@@ -19,6 +19,8 @@ def project(request,pk):
     }
     return render(request,'projects/single-project.html',context)    
 
+
+@login_required(login_url="userlogin")
 def createProject(request):
     forms = ProjectForm
 
@@ -33,6 +35,7 @@ def createProject(request):
     return render(request,'projects/project_form.html',context)    
 
 
+@login_required(login_url="userlogin")
 def updateProject(request,pk):
     project = Project.objects.get(id = pk)
     forms = ProjectForm(instance=project)
@@ -47,6 +50,8 @@ def updateProject(request,pk):
     }
     return render(request,'projects/project_form.html',context)    
 
+
+@login_required(login_url="userlogin")
 def deleteProject(request,pk):
     project = Project.objects.get(id=pk)
     if request.method == 'POST':

@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 
 {% block content %}
+
   <!-- Main Section -->
   <main class="profile my-md">
     <div class="container">
@@ -8,9 +9,9 @@
         <div class="column column--1of3">
           <div class="card text-center">
             <div class="card__body dev">
-              <img class="avatar avatar--xl" src="https://avatars.githubusercontent.com/u/33843378" />
+              <img class="avatar avatar--xl" src="{{ profile.profile_image.url }}" />
               <h2 class="dev__name">{{ profile.name }}</h2>
-              <p class="dev__title">{{ profile.bio }}</p>
+              <p class="dev__title">{{ profile.short_intro }}</p>
               <p class="dev__location">Based in {{ profile.location }}</p>
               <ul class="dev__social">
                 <li>
@@ -75,33 +76,11 @@
 
               <h3 class="devInfo__subtitle">Other Skills</h3>
               <div class="devInfo__otherSkills">
+                {% for skill in profile.skill_set.all %}
                 <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Figma</small>
+                  <small>{{ skill.name }}</small>
                 </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Vuejs</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>REST API</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>GraphQL</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>TypeScript</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Webpack</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>NextJS</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Postgres</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>MongoDB</small>
-                </span>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -196,4 +175,5 @@
       </div>
     </div>
   </main>
+
 {% endblock %}
