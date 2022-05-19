@@ -6,5 +6,6 @@ from devsearch.settings import MEDIA_ROOT, STATIC_ROOT
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('projects.urls')),
+    path('projects/',include('projects.urls')),
+    path('',include('users.urls')),
 ]+ static(settings.MEDIA_URL,document_root = MEDIA_ROOT)+ static(settings.STATIC_URL,document_root = STATIC_ROOT)

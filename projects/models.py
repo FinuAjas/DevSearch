@@ -2,12 +2,14 @@ from distutils.command.upload import upload
 from email.policy import default
 from django.db import models
 import uuid
+from users.models import Profile
 
 
 class Project(models.Model):
+    owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    image = models.ImageField(null=True, blank=True , default='default.jpg')
+    image = models.ImageField(null=True, blank=True , default='default.jpg', upload_to='projects/')
     demo_link = models.CharField(max_length=200, null=True, blank=True)
     source_link = models.CharField(max_length=200, null=True, blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
