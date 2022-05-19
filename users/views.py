@@ -37,6 +37,7 @@ def userlogin(request):
         user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
+            messages.success(request,'Welcome home!')
             return redirect('profiles')
         else:
             messages.error(request,'Username or Password is incorrect.')    
@@ -51,7 +52,7 @@ def userlogout(request):
 
 
 def userregister(request):
-    form = CustomUserCreationForm
+    form = CustomUserCreationForm()
     page = 'register'
 
     if request.method == "POST":
@@ -60,16 +61,16 @@ def userregister(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-            login(request,user)
+            
             messages.success(request,"User account created!")
+            login(request,user)
             return redirect('profiles')
         else:
             messages.error(request, 'An error while registration.')
 
-    else:        
-        context  = {
+           
+    context  = {
             'form':form,
             'page':page,
         }
-        return render(request,'users/login_register.html' ,context) 
-    
+    return render(request,'users/login_register.html' ,context) 
